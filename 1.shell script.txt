@@ -1,0 +1,388 @@
+Any collection of shell commands can be stored in a file, 
+which is then called as shell script
+Programming the scripts is called shell scripting
+Scripts have variables and flow control statements like 
+other programming languages
+Shell script are interpreted, not compiled
+The shell reads commands from the script line by line and 
+searches for those commands on the system
+
+Linux Systems
+
+Shell Scripting - Script – Where to use?
+
+● System Administration
+– Automate tasks
+– Repeated tasks
+● Development
+– Allows testing a limited sub-set
+– Testing tools
+● Daily usage
+– Simple scripts
+– Reminders, e-mails etc
+
+bash scripting/shell scripting
+
+
+vim {script name}. sh
+
+#!/bin/bash (shi-ban)
+
+for automate tasking
+
+echo "hello $(hostname)" > g.txt
+today's date $(date)/(datet +% R)
+uptime >> g.txt
+
+
+how to run a shell script 
+
+vim {filenane}.sh 
+inside that run the needed content 
+whenever you are giving arguments it should be : $(hostname/date/date+%r)
+save the script 
+
+--------------------------------------------------------------------
+
+vim new.sh
+
+#/bin/bash!
+
+CITY=ahm
+echo "i am living in $CITY!"
+
+how to run the script :--
+
+make your executable 
+chmod +x {filename}.sh
+
+./{filename}.sh
+
+i have been licing in 
+
+---------------------------------------------------------------
+
+
+command        option     target1         target2    target3    {argument}
+
+scriptname    argument1   argument2      argument3
+
+arg0 = $0
+arg1 = $1
+arg2 = $2
+arg3 = $3
+
+$# -> total number :of arguments 
+$@ -> stores the value of arguments 
+
+vim script.sh
+
+#!/bin/bash
+
+echo "total number of arguments you have enterd is $#"
+echo "value of arg is $0"
+echo "value of arg is $1"
+echo "value of arg is $2"
+echo "value of arg is $3"
+
+./script.sh 
+./script.sh  java python  delta 
+
+------------------------------------------------------------
+
+vim script.sh
+
+#/bin/bash
+
+useradd $1
+passwd $1
+
+chmod+ x script.sh
+
+./script.sh grras
+
+-------------------------------------------
+
+vim script.sh
+
+#/bin/bash
+
+useradd $1
+echo $1 | passwd --stdin $1
+
+./ script.sh drashti
+
+echo #its test 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+A Bash shell script is an executable file that contains a list of commands, and possibly with
+programming logic to control decision-making in the overall task. When well-writte n, a shell script
+is a powerful command-line tool on its own, and you can use it with other scripts.
+
+
+try these commands in your VM and see the changes  
+
+echo hello world 
+
+echo # hello world 
+
+echo \# hello world 
+
+echo \# hello world \#
+
+ echo '# hello world #'
+
+var=$(hostname -s); echo $var
+
+echo "***** hostname is ${var} *****"
+
+echo '"Hello, world"'
+
+
+exercise
+
+2. Create and execute a simple Bash script.
+
+2.1. Use the vim command to create the firstscript.sh file under your home
+directory.
+[student@servera ~]$ vim firstscript.sh
+2.2. Insert the following text, and save the file. The number of hash signs (#) is arbitrary.
+#!/usr/bin/bash
+echo "This is my first bash script" > ~/output.txt
+echo "" >> ~/output.txt
+echo "#####################################################" >> ~/output.txt
+2.3. Use the sh command to execute the script.
+[student@servera ~]$ sh firstscript.sh
+2.4. Review the output file that the script generated.
+[student@servera ~]$ cat output.txt
+This is my first bash script
+#####################################################
+ 3. Add more commands to the firstscript.sh script, execute it, and review the output.
+3.1. Use the Vim text editor to edit the firstscript.sh script.
+[student@servera ~]$ vim firstscript.sh
+The following output shows the expected content of the firstscript.sh file:
+#!/usr/bin/bash
+#
+echo "This is my first bash script" > ~/output.txt
+echo "" >> ~/output.txt
+echo "#####################################################" >> ~/output.txt
+echo "LIST BLOCK DEVICES" >> ~/output.txt
+echo "" >> ~/output.txt
+lsblk >> ~/output.txt
+echo "" >> ~/output.txt
+echo "#####################################################" >> ~/output.txt
+echo "FILESYSTEM FREE SPACE STATUS" >> ~/output.txt
+echo "" >> ~/output.txt
+df -h >> ~/output.txt
+echo "#####################################################" >> ~/output.txt
+3.2. Make the firstscript.sh file executable by using the chmod command.
+[student@servera ~]$ chmod a+x firstscript.sh
+3.3. Execute the firstscript.sh script.
+[student@servera ~]$ ./firstscript.sh
+3.4. Review the output file that the script generated.
+[student@servera ~]$ cat output.txt
+This is my first bash script
+#####################################################
+LIST BLOCK DEVICES
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+sr0 11:0 1 558K 0 rom
+vda 252:0 0 10G 0 disk
+├─vda1 252:1 0 1M 0 part
+├─vda2 252:2 0 200M 0 part /boot/efi
+├─vda3 252:3 0 500M 0 part /boot
+└─vda4 252:4 0 9.3G 0 part /
+
+
+[user@host ~]$ for HOST in host1 host2 host3; do echo $HOST; done
+host1
+host2
+host3
+[user@host ~]$ for HOST in host{1,2,3}; do echo $HOST; done
+host1
+host2
+host3
+[user@host ~]$ for HOST in host{1..3}; do echo $HOST; done
+host1
+host2
+host3
+[user@host ~]$ for FILE in file{a..c}; do ls $FILE; done
+filea
+fileb
+filec 
+
+echo $PATH variable
+
+
+LOOP ->
+  FOR -  run the loop for "n" number of times
+              run the loop accoding the variable/array
+
+   fot i {abc,def,ghi,jkl} - print i
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+vim one.sh
+
+#!/bin/bash
+
+for ((  c=100;c>=0;c-- ))
+do 
+         echo "$c"
+done
+
+./one.sh
+-------------------------------->
+
+vim two.sh
+#! /bin/bash
+
+echo "enter the name of user you want to add"
+read NAME 
+echo "enter the user name whose password you want to change"
+read  PAS 
+
+useradd $NAME
+passwd $PAS
+
+./two.sh
+-------------------------> 
+
+vim three.sh
+#!/bin/bash
+
+echo "total number of argments you have added is $#"
+for i in $@ 
+do 
+                echo "value of arg is $i ="
+done 
+
+./three.sh java python php dents
+
+----------------------------------------------------------------
+
+STATEMRNT ->
+    IF /ELSE 
+
+if [condition]
+ then
+           task1
+ else 
+            task2 
+
+if [condition1 ]
+  then 
+           tsak 1 
+elif(elseif) [condition 2]
+   then 
+            task2
+     else 
+             task3
+
+------
+{gt - greater than}
+{lt  - less than}
+
+   test 0 -gt 1 
+   test 0 -gt 1 ; echo $?
+   test 0 -gt 10 ; echo $?
+   test 0 -gt 0 ; echo $?
+   test 0 -lt 10 ; echo $?
+
+-----------------
+{z as a string}
+
+vim new.script
+
+#!/bin/bash
+
+if   [   -z    $1    ]
+
+then 
+            echo "Enter Your Name"
+            read   NAME 
+else 
+            NAME= khushi
+fi
+
+echo  "WELCOME $NAME"
+
+chmod +x
+
+vim new2.sh
+
+#!/bin/bash
+
+if   [   -z    $1    ]
+
+then 
+            echo "Enter Your Name"
+            read   NAME 
+else 
+            NAME= $1 
+fi  {# to end the statement}
+
+echo  "WELCOME $NAME"
+
+chmod +x
+
+./new2.sh name
+
+------------------------------
+vim new3.sh
+
+#!/bin/bash
+
+if [  -f   $1   ]
+then 
+                  echo   "$1  is a FILE "
+elif  [   -d  $1   ]
+then  
+                  echo  "$1   is a DIRECTORY"
+else          
+                   echo "I dont know what is $1  is !!!!!!"
+fi
+
+chmod +x 
+
+./new.sh  /etc/passwd |  etc  |  et
+
+------------------------------
+
+expr 5+7
+expr 5-7
+expr 2 /* 3
+
+--------------------------
+
+
+#/bin/bash
+
+
+#!/bin/bash
+
+if   [   -z    $1    ]
+then 
+      echo  "Entet two number:- "
+       read a 
+       read b
+else
+      a=$1
+      b=$2
+fi
+
+echo "select the operator"
+echo "1. Addition"
+echo "2. Subtraction"
+echo "3.minus"
+
+read CHOICE
+
+if  [  $ CHOICE  -eq  1 ]
+then
+      RES=$(expr $a +$b)
+      elif
+
+
+
+
+
+
